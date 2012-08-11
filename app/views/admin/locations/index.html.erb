@@ -1,0 +1,50 @@
+<table class="index sortable">
+  <tr>
+    <th><%= t("name") %></th>
+    <th><%= t("city") %></th>
+    <th><%= t("state") %></th>
+    <th><%= t("country") %></th>
+  </tr>
+
+  <% @locations.each do |location| %>
+    <tr id="<%= dom_id(location) %>">
+      <td>
+        	<%= h location.name %>
+      </td>
+      <td>
+        	<%= h location.city %>
+      </td>
+      <td>
+        	<%= h location.state %>
+      </td>
+      <td>
+        	<%= h location.country %>
+      </td>
+      <td class="actions">
+        <%= link_to_with_icon('edit', t("edit"), edit_admin_location_url(location), :class => 'edit') %>
+        &nbsp;
+        <%= link_to_delete location, {:url => admin_location_url(location) }%>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div id="location"></div>
+<br/>
+<p>
+    <%= link_to icon('add') + ' ' + t("new_location"), new_admin_location_url, :id => "new_location_link" %>
+</p>
+
+<% content_for :head do %>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+
+      jQuery('#new_location_link').click(function (event) {
+        event.preventDefault();
+        jQuery(this).hide();
+        jQuery.ajax({type: 'GET', url: this.href, data: ({authenticity_token: AUTH_TOKEN}), success: function(r){ jQuery('#location').html(r);} });
+      });
+
+    });
+  </script>
+<% end %>

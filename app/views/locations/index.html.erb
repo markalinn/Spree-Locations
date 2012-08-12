@@ -2,6 +2,10 @@
 	<%= stylesheet_link_tag 'gmaps4rails' %>
 <% end %>
 
-<%= gmaps4rails(@json) %>
+<h1><%= t("locations") %></h1>
+
+<ul id="markers_list">  </ul>
+
+<%= gmaps("markers" => {"data" => @json, "options" => {"list_container" => "markers_list" } }) %>
 
 <%= yield :scripts %>

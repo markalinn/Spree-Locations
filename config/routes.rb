@@ -1,7 +1,7 @@
-Rails.application.routes.draw do
+Spree::Core::Engine.routes.draw do
   # Add your extension routes here
-  resources :locations
   namespace :admin do
     resources :locations
   end
+  resources :locations
 end

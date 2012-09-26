@@ -1,6 +1,6 @@
 class CreateLocations < ActiveRecord::Migration
   def self.up
-    create_table :locations do |t|
+    create_table :spree_locations do |t|
       t.string  "name"
       t.string  "address_1"
       t.string  "address_2"
@@ -18,6 +18,6 @@ class CreateLocations < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :locations
+    drop_table :spree_locations
   end
 end

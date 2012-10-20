@@ -1,12 +1,13 @@
 module Spree
   class Location < ActiveRecord::Base
     
-    validates_presence_of :name, :address_1, :city, :state
+    validates_presence_of :name
     
-    acts_as_gmappable
+    #Only process geocoding if state exists to accomodate ecommerce listings with only hyperlink
+    acts_as_gmappable :process_geocoding => lambda { |obj| !obj.state.blank? && obj.latitude.blank? && obj.longitude.blank? }
     
-    attr_accessible :phone_number, :address_1, :address_2, :postal_code, :state, :name, :city, :country
-  
+    attr_accessible :phone_number, :address_1, :address_2, :postal_code, :state, :name, :city, :country, :hyperlink
+    
     def gmaps4rails_address
     #describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki
       "#{self.address_1}, #{self.city}, #{self.state} #{self.postal_code}, #{self.country}" 
